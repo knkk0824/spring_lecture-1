@@ -2,13 +2,20 @@ package com.test.bean;
 
 import com.test.original.Calc;
 
-public class PrintBean {
+
+public class PrintBean {		
 	
 	private Calc calc;
+		
+	public PrintBean(Calc calc){
+		this.calc=calc;
+	}
+	
 	public void setCalc(Calc calc){
 		this.calc=calc;
 	}
-
+	
+	
 	public String sum(int a, int b) {
 		return "덧샘결과 : " + calc.sum(a, b);
 	}

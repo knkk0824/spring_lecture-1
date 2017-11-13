@@ -3,7 +3,7 @@ package com.test.bean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
-import com.test.original.Print;
+import com.test.original.Calc;
 
 public class Main {
 
@@ -14,7 +14,7 @@ public class Main {
 		ApplicationContext ctx=
 		new GenericXmlApplicationContext("classpath:application-context.xml");
 		
-		PrintBean print=ctx.getBean("printBean",PrintBean.class);
+		PrintBean print=ctx.getBean("printBean",PrintBean.class);		
 		
 		System.out.println(print.sum(3, 5));
 		System.out.println(print.sub(3, 5));
