@@ -11,8 +11,7 @@
 	<bean id="calc2" class="com.test.bean.Calc2" />
 	
 	<bean id="printBean" 
-	      class="com.test.bean.PrintBean"
-	      c:calc-ref="calc2"
+	      class="com.test.bean.PrintBean"	    
 	      p:calc-ref="calc"		
 	/>	
 

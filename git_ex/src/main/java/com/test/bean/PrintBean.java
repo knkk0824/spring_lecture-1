@@ -6,7 +6,8 @@ import com.test.original.Calc;
 public class PrintBean {		
 	
 	private Calc calc;
-		
+	
+	public PrintBean(){}
 	public PrintBean(Calc calc){
 		this.calc=calc;
 	}
