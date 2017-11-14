@@ -7,5 +7,9 @@
 	<bean	id="memberDAO"
 			class="com.test.dao.impl.MemberDAOImpl"
 			p:dataSource-ref="dataSource" />
+			
+	<bean	id="memberService"
+			class="com.test.service.MemberServiceImpl"
+			p:memDao-ref="memberDAO" />
 
 </beans>
