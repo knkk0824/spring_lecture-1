@@ -15,11 +15,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/joinMember",method=RequestMethod.POST)
-	public String joinMember(MemberRequest memberReq,
-							 Model model){
-		
-		model.addAttribute("member", memberReq);
-	
+	public String joinMember(MemberRequest memberReq,Model model){		
+		model.addAttribute("member", memberReq);	
 		return "joinMember";
 	}
 	
