@@ -1,5 +1,6 @@
 package com.spring.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.spring.domain.BoardVO;
@@ -8,23 +9,35 @@ import com.spring.domain.SearchCriteria;
 
 public interface BoardService {
 
-  public void regist(BoardVO board) throws Exception;
+	void createBoard(BoardVO board) throws SQLException;
 
-  public BoardVO read(Integer bno) throws Exception;
+	void updateBoard(BoardVO board) throws SQLException;
 
-  public void modify(BoardVO board) throws Exception;
+	void deleteBoard(int bno) throws SQLException;
 
-  public void remove(Integer bno) throws Exception;
+	List<BoardVO> readBoardList() throws SQLException;
 
-  public List<BoardVO> listAll() throws Exception;
+	BoardVO readBoardByBno(int bno) throws SQLException;
 
-  public List<BoardVO> listCriteria(Criteria cri) throws Exception;
-
-  public int listCountCriteria(Criteria cri) throws Exception;
-
-  public List<BoardVO> listSearchCriteria(SearchCriteria cri) 
-      throws Exception;
-
-  public int listSearchCount(SearchCriteria cri) throws Exception;
-
+	List<BoardVO> readBOardListCriteria(Criteria cri) 
+			throws SQLException;
+	
+	List<BoardVO> readSearchBoardList(SearchCriteria cri) 
+			throws SQLException;
+	int readSearchBoardListCount(SearchCriteria cri)
+			throws SQLException;
+	BoardVO increaseViewCntForReadBoard(int bno) throws SQLException;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

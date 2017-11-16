@@ -46,8 +46,8 @@
 							Title OR Content OR Writer</option>
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${cri.keyword }'>
-					<button id='searchBtn'>Search</button>
-					<button id='newBtn'>New Board</button>
+					<button id='searchBtn' class="btn btn-primary">Search</button>
+					<button id='newBtn' class="btn btn-primary">New Board</button>
 
 				</div>
 			</div>
@@ -72,7 +72,7 @@
 							<tr>
 								<td>${boardVO.bno}</td>
 								<td><a
-									href='/sboard/readPage${pageMaker.makeSearch(pageMaker.cri.page) }&bno=${boardVO.bno}'>
+									href='readPage${pageMaker.makeSearch(pageMaker.cri.page) }&bno=${boardVO.bno}'>
 										${boardVO.title} </a></td>
 								<td>${boardVO.writer}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"

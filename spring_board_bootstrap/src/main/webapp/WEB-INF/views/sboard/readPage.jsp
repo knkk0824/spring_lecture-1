@@ -59,19 +59,19 @@
 		console.log(formObj);
 
 		$(".btn-warning").on("click", function() {
-			formObj.attr("action", "/sboard/modifyPage");
+			formObj.attr("action", "modifyPage");
 			formObj.attr("method", "get");
 			formObj.submit();
 		});
 
 		$(".btn-danger").on("click", function() {
-			formObj.attr("action", "/sboard/removePage");
+			formObj.attr("action", "removePage");
 			formObj.submit();
 		});
 
 		$(".btn-primary").on("click", function() {
 			formObj.attr("method", "get");
-			formObj.attr("action", "/sboard/list");
+			formObj.attr("action", "list");
 			formObj.submit();
 		});
 

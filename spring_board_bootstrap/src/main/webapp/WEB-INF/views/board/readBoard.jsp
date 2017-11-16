@@ -38,6 +38,7 @@
 			readonly="readonly">
 	</div>
 </div>
+
 <!-- /.box-body -->
 
 <div class="box-footer">
@@ -55,19 +56,19 @@ $(document).ready(function(){
 	
 	console.log(formObj);
 	
-	$(".btn-warning").on("click", function(){
-		formObj.attr("action", "/board/modify");
+	$(".btn-warning").on("click", function(){		
+		formObj.attr("action", "modifyBoard");		
 		formObj.attr("method", "get");		
 		formObj.submit();
 	});
 	
 	$(".btn-danger").on("click", function(){
-		formObj.attr("action", "/board/remove");
+		formObj.attr("action", "removeBoard");
 		formObj.submit();
 	});
 	
 	$(".btn-primary").on("click", function(){
-		self.location = "/board/listAll";
+		self.location = "listPage";
 	});
 	
 });

@@ -39,7 +39,7 @@
 							<tr>
 								<td>${boardVO.bno}</td>
 								<td><a
-									href='/board/readPage${pageMaker.makeQuery(pageMaker.cri.page) }&bno=${boardVO.bno}'>
+									href='readPage${pageMaker.makeQuery(pageMaker.cri.page) }&bno=${boardVO.bno}'>
 										${boardVO.title}</a></td>
 								<td>${boardVO.writer}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
@@ -94,7 +94,7 @@
 <!-- /.content -->
 
 <form id="jobForm">
-  <input type='hidden' name="page" value=${pageMaker.cri.perPageNum}>
+  <input type='hidden' name="page" value=${pageMaker.cri.page}>
   <input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum}>
 </form>
 
@@ -114,7 +114,7 @@
 		
 		var jobForm = $("#jobForm");
 		jobForm.find("[name='page']").val(targetPage);
-		jobForm.attr("action","/board/listPage").attr("method", "get");
+		jobForm.attr("action","listPage").attr("method", "get");
 		jobForm.submit();
 	});
 	
