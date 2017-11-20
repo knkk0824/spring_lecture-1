@@ -68,7 +68,7 @@ $(document).ready(function(){
 	});
 	
 	$(".btn-primary").on("click", function(){
-		self.location = "listPage";
+		self.location = "listAll";
 	});
 	
 });
