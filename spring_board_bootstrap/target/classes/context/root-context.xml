@@ -45,6 +45,10 @@
 	<bean id="boardService"
 		  class="com.spring.service.impl.BoardServiceImpl"
 		  p:boardDAO-ref="boardDAO" />	
+		  
+	<bean id="memberDAO"
+	  	  class="com.spring.dao.impl.MemberDAOImpl"
+	  	  p:sqlSession-ref="sqlSession" />
 </beans>
 
 
