@@ -49,6 +49,10 @@
 	<bean id="memberDAO"
 	  	  class="com.spring.dao.impl.MemberDAOImpl"
 	  	  p:sqlSession-ref="sqlSession" />
+	<bean id="memberService"
+		  class="com.spring.service.impl.MemberServiceImpl"
+		  p:memberDAO-ref="memberDAO" />
+		  
 </beans>
 
 
