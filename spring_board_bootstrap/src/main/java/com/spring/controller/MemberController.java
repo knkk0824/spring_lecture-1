@@ -44,10 +44,11 @@ public class MemberController {
 		model.addAttribute(member);		
 	} 
 	
-	@RequestMapping(value="/modifyMember",method=RequestMethod.GET)
-	public void modifyMember(String userid,Model model)throws Exception{
+	@RequestMapping(value="/modifyMemberForm",method=RequestMethod.GET)
+	public String modifyMember(String userid,Model model)throws Exception{
 		MemberVO member=memberService.getMemberById(userid);
 		model.addAttribute(member);
+		return "/member/modifyMember";
 	}
 	
 	@RequestMapping(value="/modifyMember",method=RequestMethod.POST)

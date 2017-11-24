@@ -77,7 +77,7 @@ $(document).ready(function(){
 	console.log(formObj);
 	
 	$(".btn-warning").on("click", function(){		
-		formObj.attr("action", "modifyMember");		
+		formObj.attr("action", "modifyMemberForm");		
 		formObj.attr("method", "get");		
 		formObj.submit();
 	});

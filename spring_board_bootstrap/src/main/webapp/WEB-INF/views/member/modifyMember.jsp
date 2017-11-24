@@ -69,6 +69,7 @@
 						});
 
 						$(".btn-primary").on("click", function() {
+							formObj.attr("action","modifyMember");
 							formObj.submit();
 						});
 
