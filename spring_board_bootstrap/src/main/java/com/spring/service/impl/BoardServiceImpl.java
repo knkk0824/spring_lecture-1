@@ -44,7 +44,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> readBOardListCriteria(Criteria cri)
+	public List<BoardVO> readBoardListCriteria(Criteria cri)
 			throws SQLException {
 		List<BoardVO> boardList=boardDAO.selectBoardListCriteria(cri);
 		return boardList;

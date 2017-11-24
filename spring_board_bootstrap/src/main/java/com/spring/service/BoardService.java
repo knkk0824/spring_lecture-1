@@ -19,7 +19,7 @@ public interface BoardService {
 
 	BoardVO readBoardByBno(int bno) throws SQLException;
 
-	List<BoardVO> readBOardListCriteria(Criteria cri) 
+	List<BoardVO> readBoardListCriteria(Criteria cri) 
 			throws SQLException;
 	
 	List<BoardVO> readSearchBoardList(SearchCriteria cri) 

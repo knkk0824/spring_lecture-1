@@ -35,41 +35,12 @@
 	 	]]>
 	</select>
 
-	<select id="getPage" resultType="board">
- <![CDATA[
- select 
-   bno, title, content, writer, regdate, viewcnt 
- from 
-   board 
- where bno > 0 
- order by bno desc, regdate desc
- limit #{page}, 10
- ]]>
-	</select>
-
-	<select id="selectCriteria" resultType="board">
- <![CDATA[
- select 
-   bno, title, content, writer, regdate, viewcnt 
- from 
-   board 
- where bno > 0 
- order by bno desc, regdate desc
- 
- ]]>
-	</select>
-
-
-
 	<select id="selectCountPaging" resultType="int">
- <![CDATA[
- select 
-   count(bno) 
- from 
-   board 
- where 
-   bno > 0 
- ]]>
+		 <![CDATA[
+			 select count(bno) 
+			 from board 
+			 where bno > 0 
+		 ]]>
 	</select>
 
 

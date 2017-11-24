@@ -65,6 +65,7 @@
 		});
 
 		$(".btn-primary").on("click", function() {
+			formObj.attr("action","modifyPage");
 			formObj.submit();
 		});
 

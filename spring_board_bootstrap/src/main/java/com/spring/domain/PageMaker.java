@@ -5,13 +5,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class PageMaker {
 
-  private int totalCount;
+  private int totalCount; //전체 board 수
   private int startPage;
   private int endPage;
   private boolean prev;
   private boolean next;
 
-  private int displayPageNum = 10;
+  private int displayPageNum = 10; //페이지번호개수
 
   private Criteria cri;
 

@@ -17,7 +17,9 @@
 					<h3 class="box-title">Board List</h3>
 				</div>
 				<div class='box-body'>
-					<button id='newBtn'>New Board</button>
+					<button id='newBtn' 
+					class="btn btn-primary"
+					onclick="javascript:location.href='createPage'">글쓰기</button>
 				</div>
 			</div>
 			<div class="box">
@@ -35,7 +37,7 @@
 						</tr>
 
 						<c:forEach items="${list}" var="boardVO">
-
+`
 							<tr>
 								<td>${boardVO.bno}</td>
 								<td><a
@@ -55,7 +57,6 @@
 
 
 				<div class="box-footer">
-
 				
 
 					<div class="text-center">
