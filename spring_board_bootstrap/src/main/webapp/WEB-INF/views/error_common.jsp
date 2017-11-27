@@ -11,8 +11,13 @@
 <body>
 	<h1>에러발생</h1>
 	<span>에러메세지 : ${exception.message }</span>
-	<a href='<c:url value="/board/listAll" />'>
+	<a href='<c:url value="/sboard/list" />'>
 		<button class="btn btn-primary">첫화면</button>
 	</a>
 </body>
 </html>
+
+
+
+
+
