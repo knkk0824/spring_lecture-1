@@ -48,32 +48,30 @@
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">
-				and title like CONCAT('%', #{keyword}, '%')
+				and title like '%'||#{keyword}||'%'
 			</if>
 			<if test="searchType == 'c'.toString()">
-				and content like CONCAT('%', #{keyword}, '%')
+				and content like '%'||#{keyword}||'%'
 			</if>
 			<if test="searchType == 'w'.toString()">
-				and writer like CONCAT('%', #{keyword}, '%')
+				and writer like '%'||#{keyword}||'%'
 			</if>
 			<if test="searchType == 'tc'.toString()">
-				and ( title like CONCAT('%', #{keyword}, '%') OR content
-				like
-				CONCAT('%', #{keyword}, '%'))
+				and ( title like '%'||#{keyword}||'%') OR content
+				like '%'||#{keyword}||'%')
 			</if>
 			<if test="searchType == 'cw'.toString()">
-				and ( content like CONCAT('%', #{keyword}, '%') OR writer
+				and ( content like '%'||#{keyword}||'%' OR writer
 				like
-				CONCAT('%', #{keyword}, '%'))
+				'%'||#{keyword}||'%'
 			</if>
 			<if test="searchType == 'tcw'.toString()">
-				and ( title like CONCAT('%', #{keyword}, '%')
+				and ( title like '%'||#{keyword}||'%'
 				OR
 				content
-				like CONCAT('%', #{keyword}, '%')
+				like '%'||#{keyword}||'%'
 				OR
-				writer like CONCAT('%',
-				#{keyword}, '%'))
+				writer like '%'||#{keyword}||'%')
 			</if>
 		</if>
 	</sql>
@@ -82,19 +80,35 @@
 	<![CDATA[ 
 		select *
 		from board
-		where bno > 0
-		order by bno desc
+		where bno > 0		
 	]]>
+		<include refid="search"></include>
+		order by bno desc
 	</select>
 
 	<select id="selectSearchBoardCount" resultType="int">
-<![CDATA[  
-  select count(bno) 
-  from board 
-  where bno > 0 
-]]>
+		<![CDATA[  
+		  select count(bno) 
+		  from board 
+		  where bno > 0 
+		]]>
 		<include refid="search"></include>
 
 	</select>
-
+	
+	<update id="increaseViewCnt" parameterType="int">
+		update board set viewcnt=viewcnt+1
+		where bno=#{bno}
+	</update>	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+

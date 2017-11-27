@@ -59,7 +59,7 @@
 		console.log(formObj);
 
 		$(".btn-warning").on("click", function() {
-			formObj.attr("action", "modifyPage");
+			formObj.attr("action", "modifyPageForm");
 			formObj.attr("method", "get");
 			formObj.submit();
 		});
