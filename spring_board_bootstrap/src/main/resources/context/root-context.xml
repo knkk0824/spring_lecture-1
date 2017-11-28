@@ -52,7 +52,10 @@
 	<bean id="memberService"
 		  class="com.spring.service.impl.MemberServiceImpl"
 		  p:memberDAO-ref="memberDAO" />
-		  
+	
+	<bean id="replyDAO"
+		  class="com.spring.dao.impl.ReplyDAOImpl"
+		  p:namespace="ReplyMapper"	/>  
 </beans>
 
 
