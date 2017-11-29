@@ -4,7 +4,7 @@
 <mapper namespace="ReplyMapper">
 
 
-	<select id="selectReplyList" resultType="">
+	<select id="selectReplyList" resultType="reply">
 		select * 
 		from tbl_reply
 		where bno=#{bno}
