@@ -32,7 +32,6 @@ public class ReplyController {
 	public ResponseEntity<String> register(@RequestBody ReplyVO reply){
 		
 		ResponseEntity<String> entity=null;
-		
 		try {
 			replyService.addReply(reply);
 			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);

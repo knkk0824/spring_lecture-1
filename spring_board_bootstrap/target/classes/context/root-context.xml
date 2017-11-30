@@ -55,9 +55,11 @@
 	
 	<bean id="replyDAO"
 		  class="com.spring.dao.impl.ReplyDAOImpl"
-		  p:namespace="ReplyMapper"	/>  
+		  p:namespace="ReplyMapper"
+		  p:sqlSession-ref="sqlSession"	/>  
 	<bean id="replyService"
 	      class="com.spring.service.impl.ReplyServiceImpl"
+	      p:replyDAO-ref="replyDAO"
 	      />
 	      
 </beans>

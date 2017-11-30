@@ -13,8 +13,10 @@ import com.spring.domain.ReplyVO;
 
 public class ReplyDAOImpl implements ReplyDAO {
 
-	@Autowired
 	private SqlSession sqlSession;
+	public void setSqlSession(SqlSession sqlSession){
+		this.sqlSession=sqlSession;
+	}
 	
 	private String namespace;
 	public void setNamespace(String namespace){
@@ -32,6 +34,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 	@Override
 	public void insertReply(ReplyVO reply) throws SQLException {
 		sqlSession.update(namespace+".insertReply",reply);
+		System.out.println("insert DB");
 	}
 
 	@Override

@@ -11,6 +11,7 @@ public class ReplyVO {
 	private Date regdate;
 	private Date updatedate;
 	
+	public ReplyVO(){}
 	public ReplyVO(int rno, int bno, String replytext, String replyer,
 			Date regdate, Date updatedate) {
 		super();

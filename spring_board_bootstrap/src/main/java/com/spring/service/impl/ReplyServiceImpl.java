@@ -12,8 +12,10 @@ import com.spring.service.ReplyService;
 
 public class ReplyServiceImpl implements ReplyService{
 	
-	@Autowired
 	private ReplyDAO replyDAO;
+	public void setReplyDAO(ReplyDAO replyDAO){
+		this.replyDAO=replyDAO;
+	}
 
 	@Override
 	public List<ReplyVO> getReplyList(int bno) throws SQLException {		
@@ -21,7 +23,7 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 
 	@Override
-	public void addReply(ReplyVO reply) throws SQLException {
+	public void addReply(ReplyVO reply) throws SQLException {		
 		replyDAO.insertReply(reply);
 	}
 
