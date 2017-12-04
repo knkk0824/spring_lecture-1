@@ -20,11 +20,36 @@
 	z-index:999999;
 	
 }
+
+.pagination{
+	width:100%;
+}
+.pagination li{
+	list-style:none;
+	float:left;	
+	border:1px solid blue;	
+	margin-right:3px;
+}
+.pagination li a{
+	display:block;
+	text-align:center;
+	text-decoration:none;	
+	width:30px;
+	height:30px;
+	line-height:30px;
+			
+}
+.active a{
+	font-weight:bold;
+	color:red;
+	
+}
+
 </style>
 </head>
 <body>
 	<div id="modDiv" style="display:none;" >
-		<div class="model-title"></div>
+		<div class="modal-title"></div>
 		<div>
 			<input type="text" id="replytext" />
 		</div>
@@ -52,11 +77,66 @@
 	<ul	id="replies">
 	</ul>
 	
+	<ul class="pagination">
+	</ul>
 
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
+	var bno=12298;
+	
+	var replyPage = 1 ;
 
+	getPageList(replyPage);
+	
+	$('#replyDelBtn').on('click',function(){
+		var rno=$(".modal-title").html();
+		$.ajax({
+			type:'delete',
+			url:"/replies/"+rno,
+			headers:{
+				"Content-Type":"application/json",
+				"X-HTTP-Method-Override":"DELETE"
+			},
+			dataType:'text',
+			success:function(result){
+				console.log("result:"+result);
+				if(result=='SUCCESS'){
+					alert("삭제 되었습니다.");
+					$("#modDiv").hide('slow');
+					getPageList(replyPage);
+				}
+			}
+		});
+		
+	});
+	
+	$('#replyModBtn').on('click',function(){
+		var rno=$('.modal-title').html();
+		var replytext=$('#replytext').val();
+		
+		$.ajax({
+			type:'put',
+			url:'/replies/'+rno,
+			headers:{
+				"Content-Type":"application/json",
+				"X-HTTP-Method-Override":"PUT"
+			},
+			data:JSON.stringify({
+				replytext:replytext
+			}),
+			dataType:'text',
+			success:function(result){
+				console.log("result:"+result);
+				if(result=='SUCCESS'){
+					alert("수정 되었습니다");
+					$("#modDiv").hide("slow");
+					getPageList(replyPage);
+				}
+			}
+		});
+	});
+	
 	$('#closeBtn').on('click',function(){
 		$('#modDiv').hide("slow");
 	});
@@ -73,9 +153,8 @@
 		
 	});
 	
-	var bno=12298;
 	
-	getAllList();
+	
 	
 	function getAllList(){
 		$.getJSON("/replies/all/"+bno,function(data){
@@ -90,8 +169,46 @@
 			$('#replies').html(str);
 		});
 	};
-
-
+	function getPageList(page){
+		$.getJSON("/replies/"+bno+"/"+page,function(data){
+			var str="";
+			$(data.list).each(function(){
+				str+="<li data-rno='"+this.rno+"' class='replyLi'>"
+				   +this.rno
+				   +":"
+				   +this.replytext
+				   +"<button>MOD</button></li>";				
+			});
+			$('#replies').html(str);
+			
+			printPaging(data.pageMaker);
+		});
+	}
+	
+	function printPaging(pageMaker){
+		var str="";
+		if(pageMaker.prev){
+			str+="<li><a href='"+(pageMaker.startPage-1)+"'><<</a></li>";
+		}
+		for(var i=pageMaker.startPage, len=pageMaker.endPage;i<=len;i++){
+			var strClass=pageMaker.cri.page==i?'class="active"':'';
+			str+="<li "+strClass+"><a href='"+i+"'>"+i+"</a></li>";
+		}
+		if(pageMaker.next){
+			str+="<li><a href='"+(pageMaker.endPage+1)+"'>>></a></li>";
+		}
+		$('.pagination').html(str);
+	};
+	
+	$(".pagination").on("click","li a",function(event){
+		
+		event.preventDefault();
+		
+		replyPage=$(this).attr("href");
+		
+		getPageList(replyPage);
+	});
+	
 	$('#replyAddBtn').on("click", function(event) {
 		
 		event.preventDefault();
@@ -109,7 +226,7 @@
 			success : function(result) {
 				if (result == 'SUCCESS') {
 					alert("등록 되었습니다..");
-					getAllList();
+					getPageList(1);
 				}
 			}
 		});
