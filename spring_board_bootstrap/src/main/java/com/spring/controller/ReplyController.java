@@ -34,8 +34,9 @@ public class ReplyController {
 	private ReplyService replyService;
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<String> register(ReplyVO reply) {
-
+	public ResponseEntity<String> register(@RequestBody ReplyVO reply) {
+		
+		System.out.println(reply);
 		ResponseEntity<String> entity = null;
 		try {
 			replyService.addReply(reply);
