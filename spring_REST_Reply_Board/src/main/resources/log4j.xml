@@ -32,11 +32,14 @@
 		<level value="info" />
 	</logger>
 	
-	<logger name="java.sql.Connection">
+	<!-- <logger name="java.sql.Connection">
 		<level value="debug" />
 	</logger>
 	
 	<logger name="java.sql.PreparedStatement">
+		<level value="debug" />
+	</logger> -->
+	<logger name="org.springframework.jdbc">
 		<level value="debug" />
 	</logger>
 	
