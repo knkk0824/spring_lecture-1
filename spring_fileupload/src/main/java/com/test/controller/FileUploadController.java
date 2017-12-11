@@ -1,6 +1,7 @@
 package com.test.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.test.dto.FileCommand;
 
 @Controller
 public class FileUploadController {
@@ -28,13 +32,18 @@ public class FileUploadController {
 			@RequestParam("title") String title,
 			Model model,HttpServletRequest request) throws Exception{
 		
+		/*파일용량제한*/
+		if(multipartFile.getSize()>(1024*1024*5)){
+			return "upload/uploadFileLimitedError";
+		}
+		
+		
 		uploadPath=request.getSession().getServletContext()
 				.getRealPath("resources/upload");
 		
 		if(!multipartFile.isEmpty()){
 			File file=new File(uploadPath,UUID.randomUUID().toString().replace("-", "")
-					+"$$"+multipartFile.getOriginalFilename()
-					);
+					+"$$"+multipartFile.getOriginalFilename());
 			
 			multipartFile.transferTo(file);
 			
@@ -48,7 +57,77 @@ public class FileUploadController {
 		
 		return "upload/noUploadFile";
 	}	
-
+	
+	@RequestMapping(value="/upload/multipartHttpServletRequest",
+			method=RequestMethod.POST)
+	public String uploadByMultipartHttpServletRequest(
+				MultipartHttpServletRequest request,
+				Model model
+			)throws IOException{
+		
+		MultipartFile multipartFile=request.getFile("f");
+		
+		
+		/*파일용량제한*/
+		if(multipartFile.getSize()>(1024*1024*5)){
+			return "upload/uploadFileLimitedError";
+		}
+		
+		
+		uploadPath=request.getSession().getServletContext()
+				.getRealPath("resources/upload");
+		
+		
+		if(!multipartFile.isEmpty()){
+			File file=new File(uploadPath,UUID.randomUUID().toString().replace("-", "")
+					+"$$"+multipartFile.getOriginalFilename());
+			
+			multipartFile.transferTo(file);
+			
+			model.addAttribute("title", request.getParameter("title"));
+			model.addAttribute("fileName",file.getName());
+			model.addAttribute("uploadPath",file.getAbsolutePath());
+			
+			return "upload/fileUploaded"; 
+			
+		}
+		
+		return "upload/noUploadFile";
+	}
+	
+	
+	@RequestMapping(value="/upload/commandObj",method=RequestMethod.POST)
+	public String uploadByCommandObj(FileCommand command,Model model,
+									HttpServletRequest request)
+											throws IOException{
+		
+		MultipartFile multipartFile = command.getF();
+		
+		/*파일용량제한*/
+		if(multipartFile.getSize()>(1024*1024*5)){
+			return "upload/uploadFileLimitedError";
+		}
+		
+		uploadPath=request.getSession().getServletContext()
+				.getRealPath("resources/upload");
+		
+		if(!multipartFile.isEmpty()){
+			File file=new File(uploadPath,UUID.randomUUID().toString().replace("-", "")
+					+"$$"+multipartFile.getOriginalFilename());
+			
+			multipartFile.transferTo(file);
+			
+			model.addAttribute("title", command.getTitle());
+			model.addAttribute("fileName",file.getName());
+			model.addAttribute("uploadPath",file.getAbsolutePath());
+			
+			return "upload/fileUploaded"; 
+			
+		}
+		
+		return "upload/noUploadFile";
+	}
+	
 }
 
 
