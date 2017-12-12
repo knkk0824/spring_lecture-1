@@ -32,7 +32,13 @@ public class FileCommand {
 	}
 	
 	/*toFileVO()*/
+	public FileVO toFileVO(){
+		FileVO vo=new FileVO();
+		vo.setFilename(f.getOriginalFilename());
+		vo.setTitle(title);
 		
+		return vo;
+	}	
 	
 }
 

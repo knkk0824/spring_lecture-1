@@ -5,6 +5,7 @@
 	<typeAliases>
 		<typeAlias alias="str" type="java.lang.String" />
 		<typeAlias alias="int" type="java.lang.Integer" />
+		<typeAlias alias="file" type="com.test.dto.FileVO" />
 
 	</typeAliases>	
 </configuration>

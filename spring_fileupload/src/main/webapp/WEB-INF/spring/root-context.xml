@@ -28,5 +28,21 @@
 	      class="org.mybatis.spring.SqlSessionTemplate"
 	      destroy-method="clearCache"
 		  c:sqlSessionFactory-ref="sqlSessionFactory"		  
-		  />	
+		  />
+		  
+	<bean id="fileDAO"
+		  class="com.test.dao.FileDAOImpl"
+		  p:session-ref="sqlSession" />
+	<bean id="fileService"
+		  class="com.test.service.FileServiceImpl"
+		  p:dao-ref="fileDAO" />	  	
 </beans>
+
+
+
+
+
+
+
+
+

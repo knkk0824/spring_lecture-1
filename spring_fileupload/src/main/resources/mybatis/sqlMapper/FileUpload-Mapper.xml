@@ -3,6 +3,10 @@
 
 <mapper namespace="FileUploadMapper">
 
+	<update id="insertFile">
+		insert into tbl_file(fno,title,filename,filesize,uploadPath)
+		values(file_seq.nextval,#{title},#{filename},#{filesize},#{uploadpath})
+	</update>
 
 </mapper>
 
