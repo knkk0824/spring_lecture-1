@@ -43,12 +43,46 @@
 				contentType:false,
 				processData:false,
 				success:function(data){
-					alert(data);
+					//alert(data);
+					
+					var str="";
+					if(checkImageType(data)){
+						str="<div><a href='displayFile?fileName="+getImageLink(data)+"'>"
+								+"<img src='displayFile?fileName="+data+"'/>"
+								+"</a><small data-src="+data+"><a href='#'>X</a></small></div>"
+					}else{
+						str="<div><a href='displayFile?fileName="+data+"'>"
+								+getOriginalName(data)+"</a>"
+								+"<small data-src="+data+"><a href='#'>X</a></small></div>"						
+					}
+					
+					$('.uploadedList').append(str);
 				}
 				
 			});
 			
 		});
+		function checkImageType(fileName){
+			var pattern=/jpg|gif|png|jpeg/i;
+			return fileName.match(pattern);
+		}
+		function getOriginalName(fileName){
+			if(checkImageType(fileName)){
+				return;
+			}
+			
+			var idx=fileName.indexOf("_")+1;
+			return fileName.substr(idx);
+		}
+		function getImageLink(fileName){
+			if(!checkImageType(fileName)){
+				return;
+			}
+			var front=fileName.substr(0,12); //날짜폴더 ex)2017/12/13/
+			var end=fileName.substr(14); //저장파일명 
+			
+			return front+end;
+		}
 		
 	</script>
 </body>

@@ -31,6 +31,8 @@ public class UploadFileUtils {
 		
 		FileCopyUtils.copy(fileData, target);// 파일저장
 		
+		logger.info(target.getAbsolutePath());
+		
 		String formatName = originalName.substring(originalName
 				.lastIndexOf(".") + 1);
 
