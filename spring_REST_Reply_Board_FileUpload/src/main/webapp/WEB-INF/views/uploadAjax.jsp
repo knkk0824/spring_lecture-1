@@ -12,6 +12,11 @@
 	height:200px;
 	border:1px dotted blue;
 }
+small{
+	margin-left:3px;
+	font-weight:bold;
+	color:gray;
+}
 </style>
 </head>
 <body>
@@ -49,11 +54,11 @@
 					if(checkImageType(data)){
 						str="<div><a href='displayFile?fileName="+getImageLink(data)+"'>"
 								+"<img src='displayFile?fileName="+data+"'/>"
-								+"</a><small data-src="+data+"><a href='#'>X</a></small></div>"
+								+"</a><small data-src='"+data+"'><button>X</button></small></div>"
 					}else{
 						str="<div><a href='displayFile?fileName="+data+"'>"
 								+getOriginalName(data)+"</a>"
-								+"<small data-src="+data+"><a href='#'>X</a></small></div>"						
+								+"<small data-src="+data+"><button>X</button></small></div>"						
 					}
 					
 					$('.uploadedList').append(str);
@@ -84,6 +89,23 @@
 			return front+end;
 		}
 		
+		$('.uploadedList').on('click','small ',function(){
+			var that=$(this);
+			
+			//alert("click");
+			$.ajax({
+				url:"deleteFile",
+				type:"post",
+				dataType:"text",
+				data : {fileName : $(this).attr("data-src")},
+				success:function(result){
+					if(result=='deleted'){
+						that.parent("div").remove();
+					}
+				}
+			}); 
+			
+		});
 	</script>
 </body>
 </html>
