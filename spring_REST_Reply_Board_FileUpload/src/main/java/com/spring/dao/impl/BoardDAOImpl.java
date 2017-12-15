@@ -89,8 +89,17 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public void insertAttach(String fullName) throws SQLException {
-		sqlSession.update(NAMESPACE+".insertAttach",fullName);		
+	public void insertAttach(String fullName,int bno) throws SQLException {
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("fullName", fullName);
+		paramMap.put("bno", bno);
+		
+		sqlSession.update(NAMESPACE+".insertAttach",paramMap);		
+	}
+	
+	@Override
+	public int selectMaxBno()throws SQLException{
+		return (Integer)sqlSession.selectOne(NAMESPACE+".selectMaxBno",null);
 	}
 
 	@Override

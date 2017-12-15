@@ -103,8 +103,11 @@
 	
 	<update id="insertAttach">
 		insert into tbl_attach(fullname,bno) 
-		values(#{fullname},board_seq.currval)
+		values(#{fullname},#{bno})
 	</update>
+	<select id="selectMaxBno" resultType="int">
+		select max(bno) from board
+	</select>
 	<select id="selectAttach" resultType="str">
 		select fullname 
 		from tbl_attach

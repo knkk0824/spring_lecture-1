@@ -30,7 +30,8 @@ public interface BoardDAO {
 			throws SQLException;
 	
 	// 파일 추가/삭제
-	void insertAttach(String fullName)throws SQLException;
+	void insertAttach(String fullName,int bno)throws SQLException;
+	int selectMaxBno()throws SQLException;
 	List<String> selectAttach(int bno) throws SQLException;
 	void deleteAttach(int bno)throws SQLException;
 	void replaceAttach(String fullName,int bno)throws SQLException;
