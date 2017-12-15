@@ -34,7 +34,12 @@
 					</div>
 					<!-- /.box-body -->
 
-					<div class="box-footer">
+					<div class="box-footer">						
+						<div>
+							<hr />
+						</div>
+						<ul class="mailbox-attachments clearfix uploadedList">
+						</ul>
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</div>
 				</form>

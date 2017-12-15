@@ -1,7 +1,9 @@
 package com.spring.dao.impl;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -84,6 +86,33 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void increaseViewCnt(int bno) throws SQLException{
 		sqlSession.update(NAMESPACE+".increaseViewCnt",bno);
+	}
+
+	@Override
+	public void insertAttach(String fullName) throws SQLException {
+		sqlSession.update(NAMESPACE+".insertAttach",fullName);		
+	}
+
+	@Override
+	public List<String> selectAttach(int bno) throws SQLException {
+		List<String> files=sqlSession.selectList(NAMESPACE+".selectAttach",
+				bno);
+		return files;
+	}	
+
+	@Override
+	public void deleteAttach(int bno) throws SQLException {
+		sqlSession.update(NAMESPACE+".deleteAttach",bno);
+	}
+
+	@Override
+	public void replaceAttach(String fullName, int bno) throws SQLException {
+		Map<String,Object> paraMap=new HashMap<String,Object>();
+		
+		paraMap.put("fullName", fullName);
+		paraMap.put("bno", bno);
+		
+		sqlSession.update(NAMESPACE+".replaceAttach",paraMap);		
 	}
 	
 

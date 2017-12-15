@@ -1,5 +1,6 @@
 package com.spring.domain;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class BoardVO {
@@ -11,6 +12,19 @@ public class BoardVO {
 	private Date regdate;
 	private int viewcnt;
 	
+	private String[] files;
+
+	public BoardVO(){}
+	public BoardVO(Integer bno, String title, String content, String writer,
+			Date regdate, int viewcnt, String[] files) {		
+		this.bno = bno;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.regdate = regdate;
+		this.viewcnt = viewcnt;
+		this.files = files;
+	}
 	public Integer getBno() {
 		return bno;
 	}
@@ -47,15 +61,20 @@ public class BoardVO {
 	public void setViewcnt(int viewcnt) {
 		this.viewcnt = viewcnt;
 	}
-	
-	
-	@Override
-	public String toString(){
-		return "BoardVO [bno="+bno+",title="+title+",content="+content+  
-				",writer="+writer+",regdate="+regdate+",viewcnt="+
-				viewcnt+"]";
+	public String[] getFiles() {
+		return files;
+	}
+	public void setFiles(String[] files) {
+		this.files = files;
 	}
 	
+	@Override
+	public String toString() {
+		return "BoardVO [bno=" + bno + ", title=" + title + ", content="
+				+ content + ", writer=" + writer + ", regdate=" + regdate
+				+ ", viewcnt=" + viewcnt + ", files=" + Arrays.toString(files)
+				+ "]";
+	}	
 }
 
 

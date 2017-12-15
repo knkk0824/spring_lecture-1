@@ -29,7 +29,11 @@ public interface BoardDAO {
 	int selectSearchListCount(SearchCriteria cri)	
 			throws SQLException;
 	
-	
+	// 파일 추가/삭제
+	void insertAttach(String fullName)throws SQLException;
+	List<String> selectAttach(int bno) throws SQLException;
+	void deleteAttach(int bno)throws SQLException;
+	void replaceAttach(String fullName,int bno)throws SQLException;
 }
 
 

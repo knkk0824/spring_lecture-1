@@ -66,8 +66,11 @@
 	      p:replyDAO-ref="replyDAO"
 	      />
 	
+	<!-- 선언적 트랜젝션 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	<!-- 관점지향적 트랜젝션  -->
+	<!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="*" propagation="REQUIRED" />
 			<tx:method name="create*" rollback-for="Exception" />
@@ -87,7 +90,7 @@
 		 id="servicePublicMethod"/>
 		 <aop:advisor advice-ref="txAdvice" 
 		 				pointcut-ref="servicePublicMethod"/>
-	</aop:config>      
+	</aop:config>       -->
 </beans>
 
 

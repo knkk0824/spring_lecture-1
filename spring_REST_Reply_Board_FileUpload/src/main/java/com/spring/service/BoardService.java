@@ -27,6 +27,8 @@ public interface BoardService {
 	int readSearchBoardListCount(SearchCriteria cri)
 			throws SQLException;
 	BoardVO increaseViewCntForReadBoard(int bno) throws SQLException;
+	
+	List<String> getAttach(int bno)throws SQLException;
 }
 
 
