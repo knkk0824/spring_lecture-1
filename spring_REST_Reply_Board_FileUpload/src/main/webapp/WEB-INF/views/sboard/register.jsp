@@ -2,6 +2,17 @@
 	pageEncoding="UTF-8"%>
 
 <%-- <%@include file="../include/header.jsp"%> --%>
+<head>
+	<style type="text/css">
+		.fileDrop{
+			width:80%;
+			height:100px;
+			border:1px dotted gray;
+			background-color:lightslategray;
+			margin:auto;
+		}
+	</style>
+</head>
 
 <body>
 <!-- Main content -->
@@ -28,8 +39,13 @@
 								placeholder="Enter ..."></textarea>
 						</div>
 						<div class="form-group">
-							<label for="exampleInputEmail1">Writer</label> <input type="text"
+							<label for="writer">Writer</label> 
+							<input type="text" id="writer"
 								name="writer" class="form-control" placeholder="Enter Writer">
+						</div>
+						<div class="form-group">
+							<label >File DROP Here</label>
+							<div class="fileDrop"></div>														
 						</div>
 					</div>
 					<!-- /.box-body -->
@@ -54,6 +70,54 @@
 	<!-- /.row -->
 </section>
 <!-- /.content -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<script type="text/javascript" src="/resources/js/upload.js"></script>
+<script id="template" type="text/x-handlebars-template">
+<li style="width:10%;font-size:0.8em;">
+	<span class="mailbox-attachment-icon has-img">
+      <img src="{{imgsrc}}" alt="Attachment"></span>
+    <div class="mailbox-attachment-info">
+	  <a href="{{getLink}} class="mailbox-attachment-name">{{fileName}}</a>
+      <a href="{{fullName}}"
+         class="btn btn-default btn-xs pull-right delbtn">
+			<i class="fa fa-fw fa-remove"></i></a>
+    </div>
+</li>
+</script>
+<script>
+	var template = Handlebars.compile($('#template').html());
+	
+	$(".fileDrop").on("dragenter dragover",function(event){
+		event.preventDefault();
+	});
+	
+	$(".fileDrop").on("drop",function(event){
+		event.preventDefault();
+		
+		var files = event.originalEvent.dataTransfer.files;
+		var file=files[0];
+		
+		//alert(file);
+		
+		var formData=new FormData();
+		formData.append("file",file);
+		
+		$.ajax({
+			url:"/uploadAjax",
+			type:"post",
+			data:formData,
+			processData:false,
+			contentType:false,
+			dataType:'text',
+			success:function(data){
+				var fileInfo=getFileInfo(data);
+				var html=template(fileInfo);
+				$(".uploadedList").append(html);
+			}		
+			
+		});
+	});
+</script>
 </body>
 
 <%-- <%@include file="../include/footer.jsp"%> --%>
