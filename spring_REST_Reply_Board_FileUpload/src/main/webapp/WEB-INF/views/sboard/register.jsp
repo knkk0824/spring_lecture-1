@@ -85,14 +85,19 @@
 </li>
 </script>
 <script>
+	
 	var template = Handlebars.compile($('#template').html());
 	
-	$(".fileDrop").on("dragenter dragover",function(event){
+	$("body").on("dragenter dragover",function(event){
+		event.preventDefault();
+	});
+	
+	$("body").on("drop",function(event){
 		event.preventDefault();
 	});
 	
 	$(".fileDrop").on("drop",function(event){
-		event.preventDefault();
+		//event.preventDefault();
 		
 		var files = event.originalEvent.dataTransfer.files;
 		var file=files[0];
@@ -130,6 +135,24 @@
 		
 		that.append(str);
 		that.get(0).submit();
+	});
+	
+	$('.uploadedList').on('click','.delbtn',function(event){
+		event.preventDefault();
+		
+		var that=$(this);
+		
+		$.ajax({
+			url:'/deleteFile',
+			type:'post',
+			dataType:'text',
+			data:{fileName:$(this).attr("href")},
+			success:function(result){
+				if(result=='deleted'){
+					that.parent('div').parent('li').remove();
+				}
+			}
+		});
 	});
 </script>
 </body>
