@@ -124,7 +124,7 @@
 		var that=$(this);
 		var str="";
 		$('.uploadedList .delbtn').each(function(index){
-			str+="<input type='hidden' name='files["+index+"]'"
+			str+="<input type='hidden' name='files'"
 			+"value='"+$(this).attr('href')+"'>";
 		});
 		

@@ -12,7 +12,7 @@ public class BoardVO {
 	private Date regdate;
 	private int viewcnt;
 	
-	private String[] files=new String[10];
+	private String[] files;
 
 	public BoardVO(){}
 	public BoardVO(Integer bno, String title, String content, String writer,

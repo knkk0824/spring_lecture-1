@@ -91,7 +91,7 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void insertAttach(String fullName,int bno) throws SQLException {
 		Map<String,Object> paramMap=new HashMap<String,Object>();
-		paramMap.put("fullName", fullName);
+		paramMap.put("fullname", fullName);
 		paramMap.put("bno", bno);
 		
 		sqlSession.update(NAMESPACE+".insertAttach",paramMap);		
@@ -118,7 +118,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public void replaceAttach(String fullName, int bno) throws SQLException {
 		Map<String,Object> paraMap=new HashMap<String,Object>();
 		
-		paraMap.put("fullName", fullName);
+		paraMap.put("fullname", fullName);
 		paraMap.put("bno", bno);
 		
 		sqlSession.update(NAMESPACE+".replaceAttach",paraMap);		
