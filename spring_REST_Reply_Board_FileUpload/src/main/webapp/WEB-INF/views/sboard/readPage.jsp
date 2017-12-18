@@ -347,6 +347,17 @@
 		});
 
 		$("#removeBoardBtn").on("click", function() {
+			
+			var arr=[];
+			$('.uploadedList li').each(function(index){
+				arr.push($(this).attr('data-src'));				
+			});
+			
+			if(arr.length>0){
+				$.post('/deleteAllFiles',{files:arr},function(){});
+			}
+			
+			
 			formObj.attr("action", "removePage");
 			formObj.submit();
 		});
@@ -382,6 +393,10 @@
 				$('.popup').show('slow');
 				imgTag.addClass('show');
 			}
+		});
+		
+		$('#popup_img').on('click',function(){
+			$('.popup').hide('slow');
 		});
 	});
 </script>
