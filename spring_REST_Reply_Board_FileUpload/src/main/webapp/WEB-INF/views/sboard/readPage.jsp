@@ -2,8 +2,37 @@
 	pageEncoding="UTF-8"%>
 
 <%-- <%@include file="../include/header.jsp"%> --%>
+<head>
+<style>
+	.popup{
+		position:absolute;
+		left:0px;
+		top:0px;
+	}
+	.back{
+		background-color:gray;
+		opacity:0.5;
+		width:100%;
+		height:100%;
+		overflow:hidden;
+		z-index:1101;
+	}
+	.front{
+		z-index:1110;				
+		opacity:1;
+		border:1px;	
+			}
+	.show{
+		position:relative;
+		width:50%;
+		height:50%;
+		margin:200px auto;
+		overflow:hidden;
+	}
+</style>
+	
+</head>
 <body>
-
 <!-- Main content -->
 <section class="content">
 	<div class="row">
@@ -45,43 +74,14 @@
 				</div>
 				<!-- /.box-body -->
 
+<!-- attach List -->
+<ul class="mailbox-attachments clearfix uploadedList" ></ul>
+
 				<div class="box-footer">
 					<button id="modifyBoardBtn" type="submit" class="btn btn-warning">Modify</button>
 					<button id="removeBoardBtn" type="submit" class="btn btn-danger">REMOVE</button>
 					<button id="listBoardBtn" type="submit" class="btn btn-primary">GO LIST</button>
 				</div>
-
-
-				<script>
-					$(document).ready(function() {
-
-						var formObj = $("form[role='form']");
-
-						console.log(formObj);
-
-						$("#modifyBoardBtn").on("click", function() {
-							formObj.attr("action", "modifyPageForm");
-							formObj.attr("method", "get");
-							formObj.submit();
-						});
-
-						$("#removeBoardBtn").on("click", function() {
-							formObj.attr("action", "removePage");
-							formObj.submit();
-						});
-
-						$("#listBoardBtn").on("click", function() {
-							formObj.attr("method", "get");
-							formObj.attr("action", "list");
-							formObj.submit();
-						});
-
-					});
-				</script>
-
-
-
-
 			</div>
 			<!-- /.box -->
 		</div>
@@ -155,11 +155,14 @@
 	</div>
 </div>
 
-	
+<div class="popup back" style="display:none;"></div>
+<div id="popup_front" class='popup front' style="display:none;" >
+	<img id="popup_img" />
+</div>	
 </section>
 <!-- /.content -->
 
-
+<script type="text/javascript" src="/resources/js/upload.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
 
@@ -181,6 +184,18 @@
 		</li>
 	{{/each}}
 </script>
+<script id="templateAttach" type="text/x-handlebars-template">
+	<li data-src='{{fullName}}'>
+		<span class="mailbox-attachment-icon has-img">
+			<img src="{{imgsrc}}" alt="Attachment" />
+		</span>
+		<div class="mailbox-attachment-info">
+			<a href="{{getLink}}" class="mailbox-attachment-name">
+				{{fileName}}</a>
+		</div>
+	</li>
+</script>
+
 <script>
 	Handlebars.registerHelper("prettifyDate", function(timeValue) {
 		var dateObj = new Date(timeValue);
@@ -316,6 +331,58 @@
 			}
 		
 		});		
+	});
+</script>
+
+<script>
+	$(document).ready(function(){
+		var formObj = $("form[role='form']");
+
+		console.log(formObj);
+
+		$("#modifyBoardBtn").on("click", function() {
+			formObj.attr("action", "modifyPageForm");
+			formObj.attr("method", "get");
+			formObj.submit();
+		});
+
+		$("#removeBoardBtn").on("click", function() {
+			formObj.attr("action", "removePage");
+			formObj.submit();
+		});
+
+		$("#listBoardBtn").on("click", function() {
+			formObj.attr("method", "get");
+			formObj.attr("action", "list");
+			formObj.submit();
+		});
+		
+		var bno=${boardVO.bno};
+		var template=Handlebars.compile($('#templateAttach').html());
+		
+		$.getJSON("/sboard/getAttach/"+bno,function(list){
+			$(list).each(function(){
+				var fileInfo=getFileInfo(this);
+				
+				var html=template(fileInfo);
+				$(".uploadedList").append(html);
+			});
+		});
+		
+		$('.uploadedList').on('click','.mailbox-attachment-info a',function(event){
+			var fileLink=$(this).attr("href");
+			if(checkImageType(fileLink)){
+				event.preventDefault();
+				
+				var imgTag=$('#popup_img');
+				imgTag.attr('src',fileLink);
+				
+				//console.log(imgTag.attr('src'));
+				
+				$('.popup').show('slow');
+				imgTag.addClass('show');
+			}
+		});
 	});
 </script>
 </body>
