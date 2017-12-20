@@ -38,7 +38,7 @@
 		overflow:hidden;
 	}
 </style>
-	
+</head>	
 <body>
 
 <!-- Main content -->
@@ -122,7 +122,7 @@
 	<span class="mailbox-attachment-icon has-img">
       <img src="{{imgsrc}}" alt="Attachment"></span>
     <div class="mailbox-attachment-info">
-	  <a href="{{getLink}} class="mailbox-attachment-name">{{fileName}}</a>
+	  <a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
       <a href="{{fullName}}"
          class="btn btn-default btn-xs pull-right delbtn">
 			<i class="fa fa-fw fa-remove"></i></a>
@@ -168,8 +168,9 @@ $('.uploadedList').on('click','.delbtn',function(event){
 	event.preventDefault();
 	
 	var that=$(this);
+	that.parent('div').parent('li').remove();
 	
-	$.ajax({
+	/* $.ajax({
 		url:'/deleteFile',
 		type:'post',
 		data:{fileName:$(this).attr('href')},
@@ -180,7 +181,7 @@ $('.uploadedList').on('click','.delbtn',function(event){
 			}
 		}
 		
-	});
+	}); */
 	
 });
 
@@ -193,6 +194,29 @@ $.getJSON("/sboard/getAttach/"+bno,function(list){
 		$('.uploadedList').append(html);
 	});
 });
+
+
+$('.uploadedList').on('click','.mailbox-attachment-info a',function(event){
+		
+	var fileLink=$(this).attr("href");
+	
+	if(checkImageType(fileLink)){
+		event.preventDefault();
+		
+		var imgTag=$('#popup_img');
+		imgTag.attr("src",fileLink);
+		
+		$('.popup').show("slow");
+		imgTag.addClass("show");
+	}
+});
+
+$('#popup_img').on('click',function(){
+	$('.popup').hide("slow");
+});
+
+
+
 
 $(document).ready(
 	function() {
@@ -215,12 +239,11 @@ $(document).ready(
 			that.get(0).submit();
 		});
 
-		$(".btn-warning")
-				.on("click",function() {
-					self.location = "/sboard/list?page=${cri.page}&perPageNum=${cri.perPageNum}"
-							+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";
-				});
-
+		$(".btn-warning").on("click",function(event) {
+			event.preventDefault();
+			self.location = "/sboard/list?page=${cri.page}&perPageNum=${cri.perPageNum}"
+				+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";	
+		});
 		
 	});
 </script>
