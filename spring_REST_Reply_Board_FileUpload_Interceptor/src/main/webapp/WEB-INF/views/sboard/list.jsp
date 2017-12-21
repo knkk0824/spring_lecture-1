@@ -49,6 +49,10 @@
 						value='${cri.keyword }'>
 					<button id='searchBtn' class="btn btn-primary">Search</button>
 					<button id='newBtn' class="btn btn-primary">New Board</button>
+					<button id='loginBtn' 
+							onclick="javascript:location.href=
+							'<%=request.getContextPath() %>/user/login'" 
+							class="btn btn-primary">Login</button>
 
 				</div>
 			</div>

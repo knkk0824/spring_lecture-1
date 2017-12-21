@@ -2,8 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="UserMapper">
-	<select id="selectUserById" resultType="user">
-		select * from tbl_user where user_id=#{uid}
+
+	<resultMap type="user" id="userResultMap">
+		<result property="uid" column="user_id"/>
+		<result property="upwd" column="user_pwd"/>
+		<result property="uname" column="user_name"/>
+		<result property="upoint" column="user_point" />
+	</resultMap>
+
+	<select id="selectUserById" resultMap="userResultMap">
+		select * from tbl_user 
+		where user_id=#{uid}
 	</select>
 </mapper>
 

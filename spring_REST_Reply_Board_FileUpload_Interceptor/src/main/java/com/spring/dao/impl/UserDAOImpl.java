@@ -16,9 +16,8 @@ public class UserDAOImpl implements UserDAO{
 	
 	@Override
 	public UserVO selectUserById(String uid) throws SQLException {
-		UserVO user=
-				(UserVO)sqlSession.selectOne("UserMapper.selectUserById",uid);
-		
+		UserVO user=(UserVO)sqlSession.selectOne("UserMapper.selectUserById",uid);
+		System.out.println(user);
 		return user;
 	}
 
