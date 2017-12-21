@@ -50,12 +50,7 @@
 		  class="com.spring.service.impl.BoardServiceImpl"
 		  p:boardDAO-ref="boardDAO" />	
 		  
-	<bean id="memberDAO"
-	  	  class="com.spring.dao.impl.MemberDAOImpl"
-	  	  p:sqlSession-ref="sqlSession" />
-	<bean id="memberService"
-		  class="com.spring.service.impl.MemberServiceImpl"
-		  p:memberDAO-ref="memberDAO" />
+	
 	
 	<bean id="replyDAO"
 		  class="com.spring.dao.impl.ReplyDAOImpl"
@@ -65,6 +60,15 @@
 	      class="com.spring.service.impl.ReplyServiceImpl"
 	      p:replyDAO-ref="replyDAO"
 	      />
+	<bean id="userDAO"
+		  class="com.spring.dao.impl.UserDAOImpl"
+		  p:sqlSession-ref="sqlSession" />
+		  
+	<bean id="userService"
+		  class="com.spring.service.impl.UserServiceImpl"
+		  p:userDAO-ref="userDAO" />
+		  
+	
 	
 	<!-- 선언적 트랜젝션 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
