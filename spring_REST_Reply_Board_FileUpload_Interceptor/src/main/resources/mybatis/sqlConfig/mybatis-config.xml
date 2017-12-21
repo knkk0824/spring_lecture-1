@@ -7,5 +7,6 @@
 		<typeAlias alias="int" type="java.lang.Integer" />
 		<typeAlias alias="board" type="com.spring.domain.BoardVO" />
 		<typeAlias alias="reply" type="com.spring.domain.ReplyVO" />
+		<typeAlias alias="user" type="com.spring.domain.UserVO"/>
 	</typeAliases>	
 </configuration>
