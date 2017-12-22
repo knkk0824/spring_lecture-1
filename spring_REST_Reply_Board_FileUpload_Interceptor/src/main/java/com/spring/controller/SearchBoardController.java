@@ -1,6 +1,9 @@
 package com.spring.controller;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +27,10 @@ public class SearchBoardController {
 	
 	@Autowired
 	private BoardService service;
+	
+	@Resource(name="logPath")
+	private String logPath;
+	
 	
 	@RequestMapping(value="/list",method=RequestMethod.GET)
 	public void listPage(@ModelAttribute("cri")SearchCriteria cri,
@@ -90,9 +97,15 @@ public class SearchBoardController {
 	
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public String registPOST(BoardVO board,
-						     RedirectAttributes rttr)throws Exception{
-		
-		service.createBoard(board);
+						     RedirectAttributes rttr,
+						     Model model)throws Exception{
+		try{
+			service.createBoard(board);
+			model.addAttribute("board",board);
+			model.addAttribute("logPath",logPath);
+		}catch(SQLException e){
+			throw e;
+		}
 		
 		rttr.addFlashAttribute("msg","SUCCESS");
 		

@@ -32,13 +32,20 @@ class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 	<beans:bean id="uploadPath" class="java.lang.String">
 		<beans:constructor-arg value="c:\\upload" />		
 	</beans:bean>
+	<beans:bean id="logPath" class="java.lang.String">
+		<beans:constructor-arg value="c:\\log" />		
+	</beans:bean>
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/sboard/register"/>
-			<mapping path="/sboard/modifyPageForm"/>
-			<mapping path="/sboard/removePage"/>
+			<mapping path="/**"/>			
+			<exclude-mapping path="/user/log*"/>
+			<exclude-mapping path="/sboard/list"/>			
 			<beans:bean class="com.test.interceptor.AuthInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/sboard/register"/>
+			<beans:bean class="com.test.interceptor.UserBoardLogInterceptor" />
 		</interceptor>
 	</interceptors>
 	
