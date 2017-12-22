@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page session="false"%>
+<%@ page %>
 
 <%-- <%@include file="../include/header.jsp"%> --%>
 
@@ -48,11 +48,22 @@
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${cri.keyword }'>
 					<button id='searchBtn' class="btn btn-primary">Search</button>
-					<button id='newBtn' class="btn btn-primary">New Board</button>
-					<button id='loginBtn' 
+					<button id='newBtn' class="btn btn-primary">New Board</button>					
+					<c:choose>
+						<c:when test="${empty sessionScope.loginUser}">
+							<button id='loginBtn' 
 							onclick="javascript:location.href=
 							'<%=request.getContextPath() %>/user/login'" 
 							class="btn btn-primary">Login</button>
+						</c:when>
+						<c:otherwise>
+							<button id='logoutBtn' 
+							onclick="javascript:location.href=
+							'<%=request.getContextPath() %>/user/logout'" 
+							class="btn btn-primary">Logout</button>
+						</c:otherwise>
+					</c:choose>
+					
 
 				</div>
 			</div>

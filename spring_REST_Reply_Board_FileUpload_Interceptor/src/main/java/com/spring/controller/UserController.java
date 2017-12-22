@@ -40,7 +40,6 @@ public class UserController {
 			if(loginReq.getUpwd().equals(user.getUpwd())){
 				//로그인 성공
 				session.setAttribute("loginUser", user);
-				
 				msg="alert('로그인 성공했습니다.');"
 					+"location.href='"+request.getContextPath()+"/sboard/list'";
 			}else{// 패스워드 불일치
@@ -53,7 +52,20 @@ public class UserController {
 		}
 		return "<script>"+msg+"</script>";
 	}
+	
+	@RequestMapping(value="/logout",method=RequestMethod.GET)
+	public String logout(HttpSession session)throws Exception{
+				
+		session.invalidate();
+				
+		return "redirect:/sboard/list";
+	}
 }
+
+
+
+
+
 
 
 

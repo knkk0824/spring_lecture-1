@@ -33,5 +33,13 @@ class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		<beans:constructor-arg value="c:\\upload" />		
 	</beans:bean>
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/sboard/register"/>
+			<mapping path="/sboard/modifyPageForm"/>
+			<mapping path="/sboard/removePage"/>
+			<beans:bean class="com.test.interceptor.AuthInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>
