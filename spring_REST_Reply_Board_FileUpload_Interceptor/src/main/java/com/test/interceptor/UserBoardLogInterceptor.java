@@ -1,5 +1,8 @@
 package com.test.interceptor;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,10 +32,13 @@ public class UserBoardLogInterceptor extends HandlerInterceptorAdapter{
 			
 			HttpSession session=request.getSession();
 			UserVO loginUser=(UserVO)session.getAttribute("loginUser");
-						
+			
+			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date=format.format(new Date());
+			
 			//아이디, 날짜, IP, board.content			
 			String log=loginUser.getUid()+","
-						+new DATE().toString()+","
+						+date+","
 						+request.getRemoteAddr()+","
 						+board.getContent();
 			

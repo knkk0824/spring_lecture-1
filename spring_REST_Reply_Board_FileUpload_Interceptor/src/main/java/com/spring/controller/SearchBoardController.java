@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.dao.BoardDAO;
 import com.spring.domain.BoardVO;
 import com.spring.domain.PageMaker;
 import com.spring.domain.SearchCriteria;
@@ -27,6 +28,9 @@ public class SearchBoardController {
 	
 	@Autowired
 	private BoardService service;
+	
+	@Autowired
+	private BoardDAO boardDAO;
 	
 	@Resource(name="logPath")
 	private String logPath;
@@ -96,20 +100,16 @@ public class SearchBoardController {
 	public void registGET()throws Exception{}
 	
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public String registPOST(BoardVO board,
-						     RedirectAttributes rttr,
-						     Model model)throws Exception{
+	public String registPOST(BoardVO board, Model model)throws Exception{
 		try{
-			service.createBoard(board);
+			service.createBoard(board);		
 			model.addAttribute("board",board);
 			model.addAttribute("logPath",logPath);
 		}catch(SQLException e){
 			throw e;
 		}
 		
-		rttr.addFlashAttribute("msg","SUCCESS");
-		
-		return "redirect:/sboard/list";
+		return "/sboard/registSuccess";
 	}
 	
 	@RequestMapping("/getAttach/{bno}")

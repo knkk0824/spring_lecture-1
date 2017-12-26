@@ -40,7 +40,8 @@ class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		<interceptor>
 			<mapping path="/**"/>			
 			<exclude-mapping path="/user/log*"/>
-			<exclude-mapping path="/sboard/list"/>			
+			<exclude-mapping path="/sboard/list"/>		
+			<exclude-mapping path="/resources/**"/>	
 			<beans:bean class="com.test.interceptor.AuthInterceptor"/>
 		</interceptor>
 		<interceptor>
