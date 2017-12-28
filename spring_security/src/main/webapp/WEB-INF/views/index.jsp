@@ -32,7 +32,7 @@
 		</sec:authorize>
 		
 		<sec:authorize access="isAuthenticated()">
-			<li><a href="<c:url value="/j_spring_security_logout" />">
+			<li><a href="<c:url value="/user/logout" />">
 				<button>Logout</button>
 			</a></li>
 		</sec:authorize>
