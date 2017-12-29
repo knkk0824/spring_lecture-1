@@ -25,19 +25,18 @@ public class UserBoardLogInterceptor extends HandlerInterceptorAdapter{
 		
 		BoardVO board=(BoardVO)modelAndView.getModel().get("board");
 		
-		System.out.println("!!!!!!!!!!!!"+board);
 		
 		if(board!=null){			
 			String logPath=(String)modelAndView.getModel().get("logPath");
 			
 			HttpSession session=request.getSession();
-			UserVO loginUser=(UserVO)session.getAttribute("loginUser");
+			String loginUser=(String)session.getAttribute("loginUser");
 			
 			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String date=format.format(new Date());
 			
 			//아이디, 날짜, IP, board.content			
-			String log=loginUser.getUid()+","
+			String log=loginUser+","
 						+date+","
 						+request.getRemoteAddr()+","
 						+board.getContent();

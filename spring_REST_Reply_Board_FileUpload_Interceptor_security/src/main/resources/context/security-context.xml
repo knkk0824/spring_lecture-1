@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- 인증처리 -->
+<authentication-manager>
+	<authentication-provider>
+		<jdbc-user-service data-source-ref="dataSource"
+			users-by-username-query="select user_id as username, user_pwd as password, enabled
+									 from tbl_user
+									 where user_id = ?"
+			authorities-by-username-query="select user_id as username, authority
+			                               from tbl_authorities
+			                               where user_id = ?"
+		/>
+	</authentication-provider>
+</authentication-manager>
+
+<!-- 인허가 처리 -->
+<http use-expressions="true" pattern="/**" entry-point-ref="customAuthenticationEntryPoint">
+	<request-cache ref="nullRequestCache" />
+	<access-denied-handler error-page="/security/accessDenied"/>
+	<intercept-url pattern="/user/log*" access="permitAll"/>
+	<intercept-url pattern="/resources/**" access="permitAll"/>
+	<intercept-url pattern="/sboard/register" access="isAuthenticated()"/>
+	<intercept-url pattern="/sboard/modifyPage" access="isAuthenticated()"/>
+	<intercept-url pattern="/sboard/removePage" access="isAuthenticated()"/>	
+	<intercept-url pattern="/delete*/**" access="isAuthenticated()"/>
+	<intercept-url pattern="/**" access="permitAll"/>
+	
+	<form-login login-page="/user/login"
+				login-processing-url="/user/loginPost"
+				username-parameter="uid"
+				password-parameter="upwd"
+				
+				authentication-success-handler-ref="loginSuccessHandler"
+				authentication-failure-url="/user/login?error=true"
+	/>
+	<logout logout-url="/user/logout"
+			invalidate-session="true"
+			logout-success-url="/sboard/list"
+	/>
+</http>
+
+<beans:bean id="loginSuccessHandler"
+            class="com.spring.security.LoginSuccessHandler"
+            p:defaultTargetUrl="/sboard/list"/>
+
+<beans:bean id="customAuthenticationEntryPoint"
+            class="com.spring.security.CustomAuthenticationEntryPoint"
+            p:loginFormPath="/user/login" />
+<beans:bean id="nullRequestCache"
+    	    class="org.springframework.security.web.savedrequest.NullRequestCache"/>
+
+</beans:beans>
+
+
+
+
+
+
+
+
+

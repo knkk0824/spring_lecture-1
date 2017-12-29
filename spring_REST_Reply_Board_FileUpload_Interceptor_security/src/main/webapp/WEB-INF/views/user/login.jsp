@@ -31,7 +31,8 @@
         <p class="login-box-msg">Sign in to start your session</p>
 
 <form action="/user/loginPost" method="post">
-  <div class="form-group has-feedback">
+	<input type="hidden" name="returl" value="${param.returl }" />
+  	<div class="form-group has-feedback">
     <input type="text" name="uid" class="form-control" placeholder="USER ID"/>
     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
   </div>
@@ -48,7 +49,8 @@
       </div>                        
     </div><!-- /.col -->
     <div class="col-xs-4">
-      <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+      <button type="button" onclick="login_go();" class="btn btn-primary btn-block btn-flat">Sign In(json)</button>
+      <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In(html)</button>
     </div><!-- /.col -->
   </div>
 </form>
@@ -74,6 +76,28 @@
           increaseArea: '20%' // optional
         });
       });
+      
+      function login_go(){
+    	  $.ajax({
+    		  url:'loginPost',
+    		  data:$('form input').serialize(),
+    	  	  type:'post',
+    	  	  dataType:'json',
+    	  	  beforeSend:function(xhr){
+    	  		  xhr.setRequestHeader("Accept","application/json")
+    	  	  }
+    	  }).done(function(body){
+    		 var message=body.response.message;
+    		 var error=body.response.error;
+    		 var returl=body.returl;
+    		 if(error){
+    			 if(returl==''){
+    				 returl="<c:url value"/sboard/list" />";
+    			 }
+    			 location.href=returl;    				 
+    		 }
+    	  });    		  
+      };
     </script>
   </body>
 </html>

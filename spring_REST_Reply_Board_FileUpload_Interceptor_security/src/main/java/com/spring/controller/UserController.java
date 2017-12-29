@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.domain.UserVO;
 import com.spring.service.UserService;
 
-@Controller
+//@Controller
 @RequestMapping("/user")
 public class UserController {
 	
