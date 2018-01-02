@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -49,8 +50,10 @@
       </div>                        
     </div><!-- /.col -->
     <div class="col-xs-4">
-      <button type="button" onclick="login_go();" class="btn btn-primary btn-block btn-flat">Sign In(json)</button>
-      <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In(html)</button>
+      <button type="button" onclick="login_go();" 
+      	class="btn btn-primary btn-block btn-flat">Sign In(json)</button>
+      <button type="submit" 
+        class="btn btn-primary btn-block btn-flat">Sign In(html)</button>
     </div><!-- /.col -->
   </div>
 </form>
@@ -61,7 +64,13 @@
 
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
-
+	
+	<c:if test="${param.error eq 'true' }">
+		<script>
+			alert("로그인에 실패했습니다.");
+		</script>
+	</c:if>
+	
     <!-- jQuery 2.1.4 -->
     <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.2 JS -->
@@ -89,15 +98,19 @@
     	  }).done(function(body){
     		 var message=body.response.message;
     		 var error=body.response.error;
-    		 var returl=body.returl;
-    		 if(error){
+    		 var returl=body.response.returl;
+    		 if (error){
+    			 alert(message);
+    			 $('input[name=returl]').val(returl);
+    		 }else{
     			 if(returl==''){
-    				 returl="<c:url value"/sboard/list" />";
+    				 returl="<c:url value="/sboard/list" />";
     			 }
     			 location.href=returl;    				 
     		 }
     	  });    		  
       };
     </script>
+    
   </body>
 </html>

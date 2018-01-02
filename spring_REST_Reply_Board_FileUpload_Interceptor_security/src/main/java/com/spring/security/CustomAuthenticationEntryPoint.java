@@ -21,13 +21,12 @@ public class CustomAuthenticationEntryPoint
 	
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException authExceptoin) throws IOException, ServletException {
+			AuthenticationException authException) throws IOException, ServletException {
 		
 		String redirectUrl=UrlUtils.buildFullRequestUrl(request);
-		String encoded=response.encodeRedirectUrl(redirectUrl);
+		String encoded=response.encodeRedirectURL(redirectUrl);
 		response.sendRedirect(request.getContextPath()+loginFormPath+
 				"?returl="+encoded);
 	}
-	
-
 }
+

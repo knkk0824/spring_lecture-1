@@ -21,7 +21,8 @@
 </authentication-manager>
 
 <!-- 인허가 처리 -->
-<http use-expressions="true" pattern="/**" entry-point-ref="customAuthenticationEntryPoint">
+<http use-expressions="true" pattern="/**" 
+		entry-point-ref="customAuthenticationEntryPoint">
 	<request-cache ref="nullRequestCache" />
 	<access-denied-handler error-page="/security/accessDenied"/>
 	<intercept-url pattern="/user/log*" access="permitAll"/>
@@ -38,7 +39,7 @@
 				password-parameter="upwd"
 				
 				authentication-success-handler-ref="loginSuccessHandler"
-				authentication-failure-url="/user/login?error=true"
+				authentication-failure-handler-ref="loginFailureHandler"
 	/>
 	<logout logout-url="/user/logout"
 			invalidate-session="true"
@@ -53,9 +54,13 @@
 <beans:bean id="customAuthenticationEntryPoint"
             class="com.spring.security.CustomAuthenticationEntryPoint"
             p:loginFormPath="/user/login" />
+            
 <beans:bean id="nullRequestCache"
-    	    class="org.springframework.security.web.savedrequest.NullRequestCache"/>
+   class="org.springframework.security.web.savedrequest.NullRequestCache"/>
 
+<beans:bean id="loginFailureHandler"
+	 class="com.spring.security.LoginFailureHandler"
+	 p:loginFormPath="/user/login?error=true" />
 </beans:beans>
 
 
