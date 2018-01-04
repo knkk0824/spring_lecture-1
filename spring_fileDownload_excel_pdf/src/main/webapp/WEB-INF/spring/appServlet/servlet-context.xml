@@ -27,6 +27,7 @@
 				
 	<beans:bean id="download" class="com.spring.view.DownloadView"/>
 	<beans:bean id="pdsExcel" class="com.spring.view.PdsExcelView"/>
+	<beans:bean id="pdsPdf" class="com.spring.view.PdsPdfView"/>
 	
 	<context:component-scan base-package="com.spring" />
 	

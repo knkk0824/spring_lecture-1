@@ -61,7 +61,22 @@ public class PdsController {
 				
 		return modelnview;
 	}
+	
+	@RequestMapping("/pdsPdf")
+	public ModelAndView pdsPdf(ModelAndView modelnview) throws Exception{
+		List<PdsVO> pdsList=Arrays.asList(
+				new PdsVO("a.jpg",new Date(),"김나래","어쩌구 저쩌구."),
+				new PdsVO("b.jpg",new Date(),"박나래","어쩌구 저쩌구."),
+				new PdsVO("c.jpg",new Date(),"최나래","어쩌구 저쩌구.")
+				);
+		
+		modelnview.setViewName("pdsPdf");
+		modelnview.addObject("pdsList",pdsList);
+		
+		return modelnview;
+	}
 }
+
 
 
 

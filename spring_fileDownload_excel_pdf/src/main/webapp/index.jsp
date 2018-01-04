@@ -16,6 +16,7 @@
 	
 	<ul>
 		<li><a href="pds/pdsExcel">자료실 리스트(Excel)</a></li>
+		<li><a href="pds/pdsPdf">자료실 리스트(PDF)</a></li>
 	</ul>
 </body>
 </html>
