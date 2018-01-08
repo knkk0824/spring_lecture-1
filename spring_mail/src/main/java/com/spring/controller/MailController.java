@@ -121,7 +121,7 @@ public class MailController {
 	public void mailAttach(HttpServletRequest request,
 						   HttpServletResponse response,
 						   MailRequest mailReq) throws Exception{
-JavaMailSender mailSender=(JavaMailSender)sender;
+		JavaMailSender mailSender=(JavaMailSender)sender;
 		
 		MimeMessage message=mailSender.createMimeMessage();
 		
@@ -159,6 +159,8 @@ JavaMailSender mailSender=(JavaMailSender)sender;
 				+ "</script>");
 		
 	}
+	
+	
 }
 
 

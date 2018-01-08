@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MailMapper">
+	
+	<resultMap type="mail" id="mailMap">
+		<id property="mno" column="mail_mno"/>
+		<id property="from" column="mail_from"/>
+		<id property="to" column="mail_to"/>
+		<id property="title" column="mail_title"/>
+		<id property="content" column="mail_content"/>
+		<id property="sendDate" column="mail_sendDate"/>
+	</resultMap>
+	
+	<update id="insertBoard">
+		insert into board (mail_no, mail_title, mail_content, mail_to, mail_from)
+		values(main_seq.nextval, #{title},#{content}, #{to},#{from})
+	</update>
+
+	<select id="selectMailByBno" resultMap="mailMap">
+		select
+		mail_no, mail_title,
+		mail_content, mail_from, mail_to, mail_sendDate
+		from
+		tbl_mail
+		where mail_no = #{mno}
+	</select>
+
+	<update id="deleteBoard">
+		delete from tbl_mail where mail_no = #{mno}
+	</update>
+
+	<select id="selectMailList" resultMap="mailMap">
+	 	<![CDATA[
+		 	select mail_no, mail_title, mail_content, 
+		 	mail_from, mail_to,mail_sendDate 
+		 	from tbl_mail		 	 
+		 	order by mail_no desc, mail_sendDate desc
+	 	]]>
+	</select>
+
+	<select id="selectCountPaging" resultType="int">
+		 <![CDATA[
+			 select count(mail_no) 
+			 from tbl_mail			  
+		 ]]>
+	</select>
+
+
+
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				and mail_title like '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'c'.toString()">
+				and mail_content like '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 's'.toString()">
+				and mail_to like '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				and ( mail_title like '%'||#{keyword}||'%' 
+				OR mail_content like '%'||#{keyword}||'%')
+			</if>
+			<if test="searchType == 'cs'.toString()">
+				and ( mail_content like '%'||#{keyword}||'%' 
+				OR mail_to like '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'tcs'.toString()">
+				and ( mail_title like '%'||#{keyword}||'%'
+				OR mail_content like '%'||#{keyword}||'%'
+				OR mail_to like '%'||#{keyword}||'%')
+			</if>
+		</if>
+	</sql>
+
+	<select id="selectSearchMailList" resultMap="mailMap">
+	<![CDATA[ 
+		select *
+		from tbl_mail				
+	]]>
+		<include refid="search"></include>
+		order by mail_no desc
+	</select>
+
+	<select id="selectSearchMailCount" resultType="int">
+		<![CDATA[  
+		  select count(mail_no) 
+		  from tbl_mail		   
+		]]>
+		<include refid="search"></include>
+
+	</select>
+		
+	<update id="insertAttach">
+		insert into tbl_mail_attach(fullname,mail_no) 
+		values(#{fullname},#{mno})
+	</update>
+	<select id="selectMaxMno" resultType="int">
+		select max(mail_no) from tbl_mail
+	</select>
+	<select id="selectAttach" resultType="str">
+		select fullname 
+		from tbl_mail_attach
+		where mail_no=#{mno}
+		order by mail_sendDate
+	</select>
+	<update id="deleteAttach">
+		delete from tbl_mail_attach 
+		where mail_no=#{mno}
+	</update>
+	<update id="replaceAttach">
+		insert into tbl_mail_attach(fullname,mail_no)
+		values(#{fullname},#{mno})
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
