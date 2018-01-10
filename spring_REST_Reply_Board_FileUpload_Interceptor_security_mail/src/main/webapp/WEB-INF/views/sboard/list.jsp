@@ -56,8 +56,7 @@
 						onclick="javascript:location.href=
 						'<%=request.getContextPath() %>/user/login'" 
 						class="btn btn-primary">Login</button>
-					</sec:authorize>
-					
+					</sec:authorize>					
 					<sec:authorize access="isAuthenticated()">	
 						<button id='logoutBtn' 
 						onclick="javascript:location.href=
@@ -66,9 +65,17 @@
 					</sec:authorize>
 					
 					<sec:authorize access="hasAuthority('ROLE_ADMIN')">
-						<button>ADMIN Page</button>
+						<button id='logoutBtn' 
+						onclick="javascript:location.href=
+						'<%=request.getContextPath() %>/smail/list'" 
+						class="btn btn-primary">Admin Page</button>
 					</sec:authorize>
-					
+					<sec:authorize access="isAuthenticated()">					
+						<button id='mailListBtn' 
+						onclick="javascript:location.href=
+						'<%=request.getContextPath() %>/smail/list'" 
+						class="btn btn-primary">Mail List</button>
+					</sec:authorize>
 
 				</div>
 			</div>

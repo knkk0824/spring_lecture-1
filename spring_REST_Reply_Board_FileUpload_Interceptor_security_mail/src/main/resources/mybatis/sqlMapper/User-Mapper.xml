@@ -8,6 +8,8 @@
 		<result property="upwd" column="user_pwd"/>
 		<result property="uname" column="user_name"/>
 		<result property="upoint" column="user_point" />
+		<result property="enabled" column="enabled" />
+		<result property="uemail" column="user_email"/>
 	</resultMap>
 
 	<select id="selectUserById" resultMap="userResultMap">

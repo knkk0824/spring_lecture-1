@@ -10,12 +10,13 @@ public class MailVO {
 	private String title;
 	private String content;
 	private Date sendDate;
+	private String uid;
 	
 	private String[] files;
 	
 	public MailVO(){}
 	public MailVO(int mno, String from, String to, String title,
-			String content, Date sendDate, String[] files) {
+			String content, Date sendDate, String uid, String[] files) {
 		super();
 		this.mno = mno;
 		this.from = from;
@@ -23,6 +24,7 @@ public class MailVO {
 		this.title = title;
 		this.content = content;
 		this.sendDate = sendDate;
+		this.uid = uid;
 		this.files = files;
 	}
 	public int getMno() {
@@ -61,6 +63,12 @@ public class MailVO {
 	public void setSendDate(Date sendDate) {
 		this.sendDate = sendDate;
 	}
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 	public String[] getFiles() {
 		return files;
 	}
@@ -71,8 +79,10 @@ public class MailVO {
 	public String toString() {
 		return "MailVO [mno=" + mno + ", from=" + from + ", to=" + to
 				+ ", title=" + title + ", content=" + content + ", sendDate="
-				+ sendDate + ", files=" + Arrays.toString(files) + "]";
+				+ sendDate + ", uid=" + uid + ", files="
+				+ Arrays.toString(files) + "]";
 	}
+	
 	
 		
 }

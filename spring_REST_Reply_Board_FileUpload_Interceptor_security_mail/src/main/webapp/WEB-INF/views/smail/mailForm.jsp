@@ -23,12 +23,21 @@
 			<!-- general form elements -->
 			<div class="box box-primary">
 				<div class="box-header">
-					<h3 class="box-title">REGISTER BOARD</h3>
+					<h3 class="box-title">Mail Send</h3>
 				</div>
 				<!-- /.box-header -->
 
-				<form id="registerForm" role="form" method="post">
+				<form id="mailForm" role="form" method="post">
+					<input type="hidden" name="uid" value="${loginUser}" />
 					<div class="box-body">
+						<div class="form-group">
+							<label for="from">Sender</label>							
+							<input type="email" id="from" name="from" readonly class="form-control" value="${user.uemail }">
+						</div>						
+						<div class="form-group">
+							<label for="to">Send To</label>							
+							<input type="email" id="to" name="to" class="form-control" placeholder="Enter Receiver">
+						</div>
 						<div class="form-group">
 							<label for="exampleInputEmail1">Title</label> <input type="text"
 								name='title' class="form-control" placeholder="Enter Title">
@@ -38,11 +47,7 @@
 							<textarea class="form-control" name="content" rows="3"
 								placeholder="Enter ..."></textarea>
 						</div>
-						<div class="form-group">
-							<label for="writer">Writer</label> 
-							<input type="text" id="writer" value="${loginUser}" readonly
-								name="writer" class="form-control" placeholder="Enter Writer">
-						</div>
+						
 						<div class="form-group">
 							<label >File DROP Here</label>
 							<div class="fileDrop"></div>														
@@ -56,7 +61,7 @@
 						</div>
 						<ul class="mailbox-attachments clearfix uploadedList">
 						</ul>
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="submit" class="btn btn-primary">SEND</button>
 					</div>
 				</form>
 
@@ -123,7 +128,7 @@
 		});
 	});
 	
-	$('#registerForm').submit(function(event){
+	$('#mailForm').submit(function(event){
 		event.preventDefault();
 		
 		var that=$(this);
@@ -134,6 +139,7 @@
 		});
 		
 		that.append(str);
+		that.get(0).action="mailSend";
 		that.get(0).submit();
 	});
 	

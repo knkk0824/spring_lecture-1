@@ -4,29 +4,29 @@
 <mapper namespace="MailMapper">
 	
 	<resultMap type="mail" id="mailMap">
-		<id property="mno" column="mail_mno"/>
+		<id property="mno" column="mail_no"/>
 		<id property="from" column="mail_from"/>
 		<id property="to" column="mail_to"/>
 		<id property="title" column="mail_title"/>
 		<id property="content" column="mail_content"/>
 		<id property="sendDate" column="mail_sendDate"/>
+		<id property="uid" column="user_id"/>
 	</resultMap>
 	
-	<update id="insertBoard">
-		insert into board (mail_no, mail_title, mail_content, mail_to, mail_from)
-		values(main_seq.nextval, #{title},#{content}, #{to},#{from})
+	<update id="insertMail">
+		insert into tbl_mail (mail_no, mail_title, mail_content, mail_to, mail_from,user_id)
+		values(mail_seq.nextval, #{title},#{content}, #{to},#{from},#{uid})
 	</update>
 
-	<select id="selectMailByBno" resultMap="mailMap">
+	<select id="selectMailByMno" resultMap="mailMap">
 		select
-		mail_no, mail_title,
-		mail_content, mail_from, mail_to, mail_sendDate
+		*
 		from
 		tbl_mail
 		where mail_no = #{mno}
 	</select>
 
-	<update id="deleteBoard">
+	<update id="deleteMail">
 		delete from tbl_mail where mail_no = #{mno}
 	</update>
 
@@ -104,7 +104,7 @@
 		select fullname 
 		from tbl_mail_attach
 		where mail_no=#{mno}
-		order by mail_sendDate
+		order by regDate
 	</select>
 	<update id="deleteAttach">
 		delete from tbl_mail_attach 

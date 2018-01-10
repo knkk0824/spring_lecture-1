@@ -49,7 +49,7 @@
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${cri.keyword }'>
 					<button id='searchBtn' class="btn btn-primary">Search</button>
-					<button id='newBtn' class="btn btn-primary">New Board</button>					
+					<button id='newBtn' class="btn btn-primary">New Mail</button>					
 					
 				</div>
 			</div>
@@ -73,7 +73,7 @@
 							<tr>
 								<td>${mailVO.mno}</td>
 								<td><a
-									href='readPage${pageMaker.makeSearch(pageMaker.cri.page) }&mno=${mailVO.mno}'>
+									href='readMail${pageMaker.makeSearch(pageMaker.cri.page) }&mno=${mailVO.mno}'>
 										${mailVO.title} </a></td>
 								<td>${mailVO.to}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
@@ -151,7 +151,7 @@
 
 				$('#newBtn').on("click", function(evt) {
 
-					self.location = "register";
+					self.location = "mailForm";
 
 				});
 

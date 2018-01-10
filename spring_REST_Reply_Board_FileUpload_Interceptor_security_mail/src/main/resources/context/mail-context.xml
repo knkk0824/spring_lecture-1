@@ -14,8 +14,8 @@
 		</property>	
 		<property name="defaultEncoding" value="utf-8" />
 		<property name="protocol" value="smtps" />
-		<property name="username" value="nimicosara@naver.com" />
-		<property name="password" value="dlwndus365" />
+		<property name="username" value="sender@email.com" />
+		<property name="password" value="password" />
 		
 		<!-- 각 메일서버의 smtp 설정내용  -->
 		<property name="host" value="smtp.naver.com" />

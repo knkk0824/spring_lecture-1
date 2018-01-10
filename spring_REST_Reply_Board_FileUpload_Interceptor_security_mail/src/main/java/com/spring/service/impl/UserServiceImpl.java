@@ -18,6 +18,12 @@ public class UserServiceImpl implements UserService{
 		UserVO user=userDAO.selectUserById(uid);
 		return user;
 	}
+
+	@Override
+	public UserVO getUserByID(String uid) throws SQLException {
+		UserVO user=userDAO.selectUserById(uid);
+		return user;
+	}
 }
 
 

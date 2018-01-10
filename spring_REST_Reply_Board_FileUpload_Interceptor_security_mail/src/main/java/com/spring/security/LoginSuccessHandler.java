@@ -30,7 +30,11 @@ public class LoginSuccessHandler extends
 		
 		if(StringUtils.indexOf(accept,"html")>-1){
 			//super.onAuthenticationSuccess(request, response, authentication);
-			response.sendRedirect(retUrl);
+			if(retUrl!=null && !retUrl.isEmpty()){
+				response.sendRedirect(retUrl);
+			}else{
+				response.sendRedirect(request.getContextPath()+"/sboard/list");
+			}
 		}else if(StringUtils.indexOf(accept, "json")>-1){
 			
 			response.setContentType("application/json;charset=utf-8");

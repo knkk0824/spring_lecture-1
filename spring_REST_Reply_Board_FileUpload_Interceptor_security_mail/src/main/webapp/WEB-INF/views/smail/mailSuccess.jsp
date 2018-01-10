@@ -4,6 +4,6 @@
 
 
 <script>
-	alert("등록이 완료되었습니다.");
+	alert("메일이 정상적으로 전송되었습니다.");
 	location.href="list";
 </script>

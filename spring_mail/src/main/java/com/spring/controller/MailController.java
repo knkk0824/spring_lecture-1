@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.PrintWriter;
 
 import javax.activation.FileDataSource;
+import javax.annotation.Resource;
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -25,7 +26,7 @@ public class MailController {
 	
 	@Autowired
 	private MailSender sender;
-	
+		
 	@RequestMapping("/mailForm")
 	public void mailForm(){}
 	
