@@ -142,7 +142,7 @@
 			}
 			
 			
-			formObj.attr("action", "removePage");
+			formObj.attr("action", "removeMail");
 			formObj.submit();
 		});
 

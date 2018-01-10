@@ -71,7 +71,7 @@ public class MailController {
 		model.addAttribute(service.readMailByMno(mno));
 	}
 
-	@RequestMapping(value = "/removePage", method = RequestMethod.POST)
+	@RequestMapping(value = "/removeMail", method = RequestMethod.POST)
 	public String remove(@RequestParam("mno") int mno, SearchCriteria cri,
 			RedirectAttributes rttr) throws Exception {
 

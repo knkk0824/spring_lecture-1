@@ -30,6 +30,7 @@
 	<intercept-url pattern="/sboard/register" access="isAuthenticated()"/>
 	<intercept-url pattern="/sboard/modifyPage" access="isAuthenticated()"/>
 	<intercept-url pattern="/sboard/removePage" access="isAuthenticated()"/>	
+	<intercept-url pattern="/smail/**" access="hasAuthority('ROLE_ADMIN')"/>
 	<intercept-url pattern="/delete*/**" access="isAuthenticated()"/>
 	<intercept-url pattern="/**" access="permitAll"/>
 	

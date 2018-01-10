@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="decorator"  
-		   uri="http://www.opensymphony.com/sitemesh/decorator"%>   
+		   uri="http://www.opensymphony.com/sitemesh/decorator"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>  
 <!DOCTYPE html>
 <html>
   <head>
@@ -242,8 +244,35 @@
                 </ul>
               </li>
               <!-- User Account: style can be found in dropdown.less -->
+              <sec:authorize access="!isAuthenticated()">
               <li class="dropdown user user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              	<a href="#" class="dropdown-toggle" style="padding:10px;"data-toggle="dropdown">
+                	<button class="btn btn-primary">Sign in</button>
+                </a>
+                <ul class="dropdown-menu">                 
+                  <!-- Menu Body -->
+                  <li class="user-body">
+                    <form action="/user/loginPost" method="post">
+						<input type="hidden" name="returl" value="${param.returl }" />
+					  	<div class="form-group has-feedback">
+					    <input type="text" name="uid" class="form-control" placeholder="USER ID"/>
+					    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+					  </div>
+					  <div class="form-group has-feedback">
+					    <input type="password" name="upwd" class="form-control" placeholder="Password"/>
+					    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+					  </div>
+					  <button type="button" onclick="login_go();" 
+					      	class="btn btn-primary btn-block btn-flat">Sign In(json)</button>						  
+					</form>                    
+                  </li>                 
+                </ul>
+              </li>
+              <!-- Control Sidebar Toggle Button -->
+              </sec:authorize>
+              <sec:authorize access="isAuthenticated()">              
+              <li class="dropdown user user-menu">              	
+              	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="<%=request.getContextPath() %>/resources/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
                   <span class="hidden-xs">Alexander Pierce</span>
                 </a>
@@ -258,28 +287,13 @@
                   </li>
                   <!-- Menu Body -->
                   <li class="user-body">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
-                    </div>
-                  </li>
-                  <!-- Menu Footer-->
-                  <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
-                    <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                    </div>
+                     <button class="btn btn-primary btn-block btn-flat" id='logoutBtn' onclick="javascript:location.href=
+						'<%=request.getContextPath() %>/user/logout'">Sign out</button>                    
                   </li>
                 </ul>
               </li>
-              <!-- Control Sidebar Toggle Button -->
+              </sec:authorize>
+              
               <li>
                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
               </li>
@@ -344,3 +358,47 @@
             <li class="active">General Elements</li>
           </ol>
         </section>
+        
+    <c:if test="${param.error eq 'true' }">
+		<script>
+			alert("로그인에 실패했습니다.");
+		</script>
+	</c:if>
+	
+    
+    <!-- iCheck -->
+    <script src="/resources/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+    <script>
+      $(function () {
+        $('input').iCheck({
+          checkboxClass: 'icheckbox_square-blue',
+          radioClass: 'iradio_square-blue',
+          increaseArea: '20%' // optional
+        });
+      });
+      
+      function login_go(){
+    	  $.ajax({
+    		  url:'<c:url value="/user/loginPost" />',
+    		  data:$('form input').serialize(),
+    	  	  type:'post',
+    	  	  dataType:'json',
+    	  	  beforeSend:function(xhr){
+    	  		  xhr.setRequestHeader("Accept","application/json")
+    	  	  }
+    	  }).done(function(body){
+    		 var message=body.response.message;
+    		 var error=body.response.error;
+    		 var returl=body.response.returl;
+    		 if (error){
+    			 alert(message);
+    			 $('input[name=returl]').val(returl);
+    		 }else{
+    			 if(returl==''){
+    				 returl="<c:url value="/sboard/list" />";
+    			 }
+    			 location.href=returl;    				 
+    		 }
+    	  });    		  
+      };
+    </script>

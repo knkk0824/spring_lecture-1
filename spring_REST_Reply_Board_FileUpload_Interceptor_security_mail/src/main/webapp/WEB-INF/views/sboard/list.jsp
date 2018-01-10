@@ -50,27 +50,14 @@
 						value='${cri.keyword }'>
 					<button id='searchBtn' class="btn btn-primary">Search</button>
 					<button id='newBtn' class="btn btn-primary">New Board</button>					
-					
-					<sec:authorize access="!isAuthenticated()">					
-						<button id='loginBtn' 
-						onclick="javascript:location.href=
-						'<%=request.getContextPath() %>/user/login'" 
-						class="btn btn-primary">Login</button>
-					</sec:authorize>					
-					<sec:authorize access="isAuthenticated()">	
-						<button id='logoutBtn' 
-						onclick="javascript:location.href=
-						'<%=request.getContextPath() %>/user/logout'" 
-						class="btn btn-primary">Logout</button>
-					</sec:authorize>
-					
+															
 					<sec:authorize access="hasAuthority('ROLE_ADMIN')">
 						<button id='logoutBtn' 
 						onclick="javascript:location.href=
 						'<%=request.getContextPath() %>/smail/list'" 
 						class="btn btn-primary">Admin Page</button>
 					</sec:authorize>
-					<sec:authorize access="isAuthenticated()">					
+					<sec:authorize access="hasAuthority('ROLE_ADMIN')">					
 						<button id='mailListBtn' 
 						onclick="javascript:location.href=
 						'<%=request.getContextPath() %>/smail/list'" 

@@ -48,7 +48,7 @@
 							Title OR Content OR Receiver</option>
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${cri.keyword }'>
-					<button id='searchBtn' class="btn btn-primary">Search</button>
+					<button id='searchBtn' class="btn btn-primary">Search</button>					
 					<button id='newBtn' class="btn btn-primary">New Mail</button>					
 					
 				</div>
