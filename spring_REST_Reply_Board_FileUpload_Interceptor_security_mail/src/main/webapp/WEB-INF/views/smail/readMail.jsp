@@ -69,7 +69,7 @@
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">Title</label> <input type="text"
-							name='title' class="form-control" value="${mialVO.title}"
+							name='title' class="form-control" value="${mailVO.title}"
 							readonly="readonly">
 					</div>
 					<div class="form-group">
